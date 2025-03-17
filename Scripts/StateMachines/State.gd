@@ -24,4 +24,3 @@ func process_frame(delta: float) -> State:
 
 func process_physics(delta: float) -> State:
 	return null
-
