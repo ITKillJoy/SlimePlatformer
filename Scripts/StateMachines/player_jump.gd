@@ -16,8 +16,9 @@ func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("Jump") and parent.is_on_wall():
 		#on get_wall Normal (1.0, 0.0) is for the right side of wall and (-1.0, 0.0) os for left side of the wall
 		var wallDirection=parent.get_wall_normal().x
+		print("In Jump ", wallDirection," ", parent.getLastWallSide())
 		parent.setLastWallSide(wallDirection)
-		if( wallDirection> 0):			
+		if( wallDirection> 0):
 			return wall_jump_right_state
 		else:
 			return wall_jump_left_state

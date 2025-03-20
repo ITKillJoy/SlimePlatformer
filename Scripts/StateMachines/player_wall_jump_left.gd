@@ -4,10 +4,11 @@ extends State
 @export var idle_state: State
 @export var move_state: State
 @export var wall_jump_right_state: State
-
+var movement: float
 
 func enter() -> void: 
 	super()
+	movement = -side_jump_speed
 	parent.velocity.y = -jump_speed
 
 func process_input(event: InputEvent) -> State:
@@ -26,7 +27,8 @@ func process_physics(delta: float) -> State:
 	if parent.velocity.y > 0:
 		return fall_state
 	
-	var movement = Input.get_axis("Left", "Right") * move_speed
+	#var movement = Input.get_axis("Left", "Right") * move_speed
+	
 	
 	if movement !=0:
 		parent.animations.flip_h = movement < 0
