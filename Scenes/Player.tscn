@@ -329,10 +329,12 @@ wall_jump_left_state = NodePath("../leftWallJump")
 wall_jump_right_state = NodePath("../leftWallJump")
 animation_name = "player_jump"
 
-[node name="fall" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
+[node name="fall" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state", "wall_jump_left_state", "wall_jump_right_state")]
 script = ExtResource("9_fy3fh")
 idle_state = NodePath("../idle")
 move_state = NodePath("../move")
+wall_jump_left_state = NodePath("../leftWallJump")
+wall_jump_right_state = NodePath("../rightWallJump")
 animation_name = "player_move"
 
 [node name="leftWallJump" type="Node" parent="state_machine" node_paths=PackedStringArray("fall_state", "idle_state", "move_state", "wall_jump_right_state")]

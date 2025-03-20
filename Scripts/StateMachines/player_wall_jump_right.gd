@@ -8,7 +8,7 @@ extends State
 
 
 func enter() -> void: 
-	super()	
+	super()
 	parent.velocity.y = -jump_speed
 
 func process_input(event: InputEvent) -> State:
@@ -17,6 +17,7 @@ func process_input(event: InputEvent) -> State:
 		if(parent.get_wall_normal().x > 0):
 			return null
 		else:
+			parent.setLastWallSide(-1)
 			return wall_jump_left_state
 	return null
 

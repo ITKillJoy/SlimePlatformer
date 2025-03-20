@@ -7,13 +7,14 @@ extends State
 
 
 func enter() -> void: 
-	super()	
+	super()
 	parent.velocity.y = -jump_speed
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("Jump") and parent.is_on_wall():
 		#on get_wall Normal (1.0, 0.0) is for the right side of wall and (-1.0, 0.0) os for left side of the wall
 		if(parent.get_wall_normal().x > 0):
+			parent.setLastWallSide(1)
 			return wall_jump_right_state
 		else:
 			return null
