@@ -3,9 +3,7 @@ extends State
 @export var fall_state: State
 @export var idle_state: State
 @export var move_state: State
-@export var wall_jump_left_state: State
 @export var wall_jump_right_state: State
-
 
 
 func enter() -> void: 
@@ -18,7 +16,7 @@ func process_input(event: InputEvent) -> State:
 		if(parent.get_wall_normal().x > 0):
 			return wall_jump_right_state
 		else:
-			return wall_jump_left_state
+			return null
 	return null
 
 func process_physics(delta: float) -> State:

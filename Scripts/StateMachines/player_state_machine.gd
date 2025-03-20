@@ -1,14 +1,14 @@
 extends Node
 
-@export
-var starting_state: State
-
+@export var starting_state: State
 var current_state: State
+
+
+
 
 func init(parent: Player) -> void:
 	for child in get_children():
-		child.parent = parent
-	
+		child.parent = parent	
 	change_state(starting_state)
 
 func change_state(new_state: State) -> void:

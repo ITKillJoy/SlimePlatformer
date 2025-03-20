@@ -4,7 +4,6 @@ extends State
 @export var idle_state: State
 @export var move_state: State
 @export var wall_jump_left_state: State
-@export var wall_jump_right_state: State
 
 
 
@@ -16,7 +15,7 @@ func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("Jump") and parent.is_on_wall():
 		#on get_wall Normal (1.0, 0.0) is for the right side of wall and (-1.0, 0.0) os for left side of the wall
 		if(parent.get_wall_normal().x > 0):
-			return wall_jump_right_state
+			return null
 		else:
 			return wall_jump_left_state
 	return null

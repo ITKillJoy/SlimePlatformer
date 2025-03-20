@@ -8,7 +8,7 @@ func enter() -> void:
 	super()
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_just_pressed('Jump') and parent.is_on_floor():
+	if Input.is_action_just_pressed("Jump") and parent.is_on_floor():
 		return jump_state
 	return null
 	

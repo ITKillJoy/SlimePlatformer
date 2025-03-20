@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://bgoocwj5jlg3h"]
+[gd_scene load_steps=50 format=3 uid="uid://bgoocwj5jlg3h"]
 
 [ext_resource type="Script" uid="uid://35iopnlinqth" path="res://Scripts/Player.gd" id="1_a3mtx"]
 [ext_resource type="Texture2D" uid="uid://by5ctl35g65q" path="res://Sprites/Characters/Red_Slime/Attack_1.png" id="1_tkh8x"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://c1lawdr4s4gv" path="res://Scripts/StateMachines/player_move.gd" id="7_6f82l"]
 [ext_resource type="Script" uid="uid://0p4lamgj72" path="res://Scripts/StateMachines/player_jump.gd" id="8_xj314"]
 [ext_resource type="Script" uid="uid://bymff3t4tvmfh" path="res://Scripts/StateMachines/player_fall.gd" id="9_fy3fh"]
+[ext_resource type="Script" uid="uid://c3jju5idb27vd" path="res://Scripts/StateMachines/player_wall_jump_left.gd" id="11_glx4g"]
+[ext_resource type="Script" uid="uid://d27y8pq80hrtn" path="res://Scripts/StateMachines/player_wall_jump_right.gd" id="12_miouo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w3jvu"]
 atlas = ExtResource("1_tkh8x")
@@ -285,7 +287,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ix0rd"]
-radius = 13.0384
+radius = 16.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_a3mtx")
@@ -296,7 +298,7 @@ animation = &"player_fall"
 autoplay = "player_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 14)
+position = Vector2(-3, 16)
 shape = SubResource("CircleShape2D_ix0rd")
 
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
@@ -318,11 +320,13 @@ idle_state = NodePath("../idle")
 fall_state = NodePath("../fall")
 animation_name = "player_move"
 
-[node name="jump" type="Node" parent="state_machine" node_paths=PackedStringArray("fall_state", "idle_state", "move_state")]
+[node name="jump" type="Node" parent="state_machine" node_paths=PackedStringArray("fall_state", "idle_state", "move_state", "wall_jump_left_state", "wall_jump_right_state")]
 script = ExtResource("8_xj314")
 fall_state = NodePath("../fall")
 idle_state = NodePath("../idle")
 move_state = NodePath("../move")
+wall_jump_left_state = NodePath("../leftWallJump")
+wall_jump_right_state = NodePath("../leftWallJump")
 animation_name = "player_jump"
 
 [node name="fall" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
@@ -330,5 +334,21 @@ script = ExtResource("9_fy3fh")
 idle_state = NodePath("../idle")
 move_state = NodePath("../move")
 animation_name = "player_move"
+
+[node name="leftWallJump" type="Node" parent="state_machine" node_paths=PackedStringArray("fall_state", "idle_state", "move_state", "wall_jump_right_state")]
+script = ExtResource("11_glx4g")
+fall_state = NodePath("../fall")
+idle_state = NodePath("../idle")
+move_state = NodePath("../move")
+wall_jump_right_state = NodePath("../rightWallJump")
+animation_name = "player_jump"
+
+[node name="rightWallJump" type="Node" parent="state_machine" node_paths=PackedStringArray("fall_state", "idle_state", "move_state", "wall_jump_left_state")]
+script = ExtResource("12_miouo")
+fall_state = NodePath("../fall")
+idle_state = NodePath("../idle")
+move_state = NodePath("../move")
+wall_jump_left_state = NodePath("../leftWallJump")
+animation_name = "player_jump"
 
 [connection signal="animation_finished" from="PlayerAnimations" to="." method="_on_animated_sprite_2d_animation_finished"]
